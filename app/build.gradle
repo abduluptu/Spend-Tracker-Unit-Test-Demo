@@ -1,0 +1,94 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt' //add this here for initialize room for test
+}
+
+android {
+    compileSdk 31
+
+    defaultConfig {
+        applicationId "com.sohainfotech.spendtrackerunittestdemo"
+        minSdk 21
+        targetSdk 31
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    /**
+     * https://www.youtube.com/watch?v=rM25aJ0o3Us
+     * //https://www.simplifiedcoding.net/android-unit-test-tutorial/
+     *
+     * //https://www.youtube.com/watch?v=Hb0UV0f6kmQ
+     * //Ref: Android Unit Test Room Database – Testing Room DAOs
+     *
+     * /https://www.youtube.com/watch?v=mNUBSRmj0Uk
+     * //Ref: https://www.simplifiedcoding.net/android-viewmodel-unit-test
+     *
+     * https://www.youtube.com/watch?v=4kYiSd2QsRE&t=393s
+     * https://www.simplifiedcoding.net/android-espresso-tutorial/
+     *
+     *
+     */
+
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+    testImplementation 'junit:junit:4.+'
+    //step4: we will use Google Truth, to simplify the assertions
+    testImplementation "com.google.truth:truth:1.1.2"
+
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    //step4: we will use Google Truth, to simplify the assertions
+    androidTestImplementation "com.google.truth:truth:1.1.2"
+
+    //Room Dependencies
+    def room_version = "2.3.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    //annotationProcessor"androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    androidTestImplementation "androidx.room:room-testing:$room_version"
+
+    // Test helpers for LiveData
+    testImplementation "android.arch.core:core-testing:1.1.0"
+    // Test helpers for LiveData
+    androidTestImplementation "android.arch.core:core-testing:1.1.0"
+
+    //As we are running an instrumented unit test here; and it requires a real device or emulator.
+    // And you know it is time taking to do things on a real device or emulator.
+    // So to make this process faster, we can use Roboelectric.
+    //testImplementation 'org.robolectric:robolectric:4.5.1'
+
+    //Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.0'
+
+    //"MVVM" LiveData and ViewModel
+    def lifecycle_version = "2.4.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+}
